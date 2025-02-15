@@ -1,0 +1,72 @@
+### Create a new user (creator)
+POST http://localhost:8000/users/
+Content-Type: application/json
+
+{
+    "username": "jane_doe",
+    "email": "jane@example.com",
+    "password": "secret123"
+}
+
+### Create another user (assignee)
+POST http://localhost:8000/users/
+Content-Type: application/json
+
+{
+    "username": "john_doe",
+    "email": "john@example.com",
+    "password": "secret123"
+}
+
+### Get all users
+GET http://localhost:8000/users/
+
+### Get specific user
+GET http://localhost:8000/users/1
+
+### Create a new task
+POST http://localhost:8000/tasks/?creator_id=1
+Content-Type: application/json
+
+{
+    "title": "Clean the kitchen",
+    "description": "Clean all surfaces and floor in the kitchen",
+    "points": 10,
+    "due_date": "2024-02-20T23:59:59"
+}
+
+### Get all tasks (with pagination)
+GET http://localhost:8000/tasks/?skip=0&limit=100
+
+### Get specific task
+GET http://localhost:8000/tasks/1
+
+### Assign task to user who will complete it
+POST http://localhost:8000/tasks/1/assign
+Content-Type: application/json
+
+{
+    "assignee_id": 2
+}
+
+### Mark task as DONE
+PUT http://localhost:8000/tasks/1/status
+Content-Type: application/json
+
+{
+    "status": "DONE"
+}
+
+### Mark task as EXPIRED
+PUT http://localhost:8000/tasks/1/status
+Content-Type: application/json
+
+{
+    "status": "EXPIRED"
+}
+
+### Check for expired tasks
+POST http://localhost:8000/tasks/check-expired
+
+### Get monthly statistics
+GET http://localhost:8000/stats/monthly 
